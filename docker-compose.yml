@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  jiraDB:
+    build: ./psql-docker
+    image: jiradb
+    networks:
+      - jira-network
+    tty: true
+  jiraUI:
+    build: ./jira-docker
+    image: jiraui
+    networks:
+      - jira-network
+    depends_on:
+      - jiraDB
+    volumes:
+      - "var_jira:/var/atlassian/jira"
+      - "opt_jira:/opt/atlassian/jira"
+    ports:
+      - "8888:8080"
+    tty: true
+
+networks:
+  jira-network:
+
+volumes:
+  var_jira:
+  opt_jira:
