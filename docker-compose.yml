@@ -4,6 +4,7 @@ services:
   jiraDB:
     build: ./psql-docker
     image: jiradb
+    user: postgres
     networks:
       - jira-network
     tty: true
@@ -18,6 +19,7 @@ services:
   jiraUI:
     build: ./jira-docker
     image: jiraui
+    user: daemon
     networks:
       - jira-network
     depends_on:
